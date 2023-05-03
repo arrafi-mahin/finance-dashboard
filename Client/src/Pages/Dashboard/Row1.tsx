@@ -4,7 +4,8 @@ import { useGetKpisQuery } from '../../state/api'
 type Props = {}
 
 function Row1({}: Props) {
-  const {data } = useGetKpisQuery()
+  const {data } = useGetKpisQuery();
+  console.log("data", data);
   return (
     <>
         <DashboardBox  gridArea="a"></DashboardBox>
