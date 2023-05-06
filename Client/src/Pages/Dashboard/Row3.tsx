@@ -162,7 +162,7 @@ function Row3() {
         <FlexBetween mt="0.5rem" gap="0.5rem" p="0 1rem" textAlign="center">
           {pieChartData?.map((data, i) => (
             <Box key={`${data[0].name}-${i}`}>
-              <PieChart width={110} height={100}>
+              <PieChart width={80} height={80}>
                 <Pie
                   data={data}
                   stroke="none"
@@ -176,12 +176,39 @@ function Row3() {
                   ))}
                 </Pie>
               </PieChart>
-              <Typography variant="h5">{data[0].name}</Typography>
+              <Typography mt="0.25rem" variant="h5">
+                {data[0].name}
+              </Typography>
             </Box>
           ))}
         </FlexBetween>
       </DashboardBox>
-      <DashboardBox gridArea="j"></DashboardBox>
+      <DashboardBox gridArea="j">
+        <BoxHeader
+          title="Overall Summary and Explanations Data"
+          sideText="+15%"
+        />
+        <Box
+          height="15px"
+          margin="1.25rem 1rem 0.4rem 1rem"
+          bgcolor={palette.primary[800]}
+          borderRadius="1rem"
+        >
+          <Box
+            height="15px"
+            bgcolor={palette.primary[600]}
+            borderRadius="1rem"
+            width="40%"
+          ></Box>
+        </Box>
+        <Typography margin="0 1rem " variant="h6">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur
+          ullam soluta, explicabo obcaecati maiores voluptates qui rem. Omnis
+          dolorem earum magnam rerum alias dolore adipisci suscipit maxime,
+          recusandae nobis libero modi facilis aperiam. Aspernatur in accusamus
+          mollitia reiciendis
+        </Typography>
+      </DashboardBox>
     </>
   );
 }
