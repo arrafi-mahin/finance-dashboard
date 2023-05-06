@@ -1,26 +1,38 @@
+import BoxHeader from "@/components/BoxHeader";
+import DashboardBox from "@/components/DashboardBox";
+import { useGetKpisQuery } from "@/state/api";
+import { useTheme } from "@mui/material";
 import { useMemo } from "react";
-import DashboardBox from "../../Components/DashboardBox";
-import { useGetKpisQuery } from "../../state/api";
 import {
   ResponsiveContainer,
-  AreaChart,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Area,
-  Line,
   CartesianGrid,
-  Legend,
-  LineChart,
+  AreaChart,
   BarChart,
   Bar,
+  LineChart,
+  XAxis,
+  YAxis,
+  Legend,
+  Line,
+  Tooltip,
+  Area,
 } from "recharts";
-import { useTheme } from "@mui/material";
-import BoxHeader from "../../Components/BoxHeader";
 
-function Row1() {
+const Row1 = () => {
   const { palette } = useTheme();
   const { data } = useGetKpisQuery();
+
+  const revenue = useMemo(() => {
+    return (
+      data &&
+      data[0].monthlyData.map(({ month, revenue }) => {
+        return {
+          name: month.substring(0, 3),
+          revenue: revenue,
+        };
+      })
+    );
+  }, [data]);
 
   const revenueExpenses = useMemo(() => {
     return (
@@ -34,17 +46,7 @@ function Row1() {
       })
     );
   }, [data]);
-  const revenue = useMemo(() => {
-    return (
-      data &&
-      data[0].monthlyData.map(({ month, revenue }) => {
-        return {
-          name: month.substring(0, 3),
-          revenue: revenue,
-        };
-      })
-    );
-  }, [data]);
+
   const revenueProfit = useMemo(() => {
     return (
       data &&
@@ -63,7 +65,7 @@ function Row1() {
       <DashboardBox gridArea="a">
         <BoxHeader
           title="Revenue and Expenses"
-          subtitle="Top line represents revenue, bottom line represents expenses"
+          subtitle="top line represents revenue, bottom line represents expenses"
           sideText="+4%"
         />
         <ResponsiveContainer width="100%" height="100%">
@@ -110,24 +112,24 @@ function Row1() {
               style={{ fontSize: "10px" }}
             />
             <YAxis
-              axisLine={{ strokeWidth: "0" }}
               tickLine={false}
+              axisLine={{ strokeWidth: "0" }}
               style={{ fontSize: "10px" }}
               domain={[8000, 23000]}
             />
             <Tooltip />
             <Area
               type="monotone"
-              dot={true}
               dataKey="revenue"
+              dot={true}
               stroke={palette.primary.main}
               fillOpacity={1}
               fill="url(#colorRevenue)"
             />
             <Area
               type="monotone"
-              dot={true}
               dataKey="expenses"
+              dot={true}
               stroke={palette.primary.main}
               fillOpacity={1}
               fill="url(#colorExpenses)"
@@ -138,7 +140,7 @@ function Row1() {
       <DashboardBox gridArea="b">
         <BoxHeader
           title="Profit and Revenue"
-          subtitle="Top line represents revenue, bottom line represents Profit."
+          subtitle="top line represents revenue, bottom line represents expenses"
           sideText="+4%"
         />
         <ResponsiveContainer width="100%" height="100%">
@@ -161,15 +163,15 @@ function Row1() {
             />
             <YAxis
               yAxisId="left"
-              axisLine={false}
               tickLine={false}
+              axisLine={false}
               style={{ fontSize: "10px" }}
             />
             <YAxis
               yAxisId="right"
               orientation="right"
-              axisLine={false}
               tickLine={false}
+              axisLine={false}
               style={{ fontSize: "10px" }}
             />
             <Tooltip />
@@ -196,8 +198,8 @@ function Row1() {
       </DashboardBox>
       <DashboardBox gridArea="c">
         <BoxHeader
-          title="Revenue Month By Month"
-          subtitle="Graph representing the revenue month by month."
+          title="Revenue Month by Month"
+          subtitle="graph representing the revenue month by month"
           sideText="+4%"
         />
         <ResponsiveContainer width="100%" height="100%">
@@ -239,13 +241,12 @@ function Row1() {
               style={{ fontSize: "10px" }}
             />
             <Tooltip />
-
             <Bar dataKey="revenue" fill="url(#colorRevenue)" />
           </BarChart>
         </ResponsiveContainer>
       </DashboardBox>
     </>
   );
-}
+};
 
 export default Row1;

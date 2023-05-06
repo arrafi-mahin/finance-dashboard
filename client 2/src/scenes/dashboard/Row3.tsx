@@ -1,23 +1,23 @@
-import React, { useMemo } from "react";
-import DashboardBox from "../../Components/DashboardBox";
+import { useMemo } from "react";
+import BoxHeader from "@/components/BoxHeader";
+import DashboardBox from "@/components/DashboardBox";
+import FlexBetween from "@/components/FlexBetween";
 import {
   useGetKpisQuery,
   useGetProductsQuery,
   useGetTransactionsQuery,
-} from "../../state/api";
+} from "@/state/api";
+import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid, GridCellParams } from "@mui/x-data-grid";
-import BoxHeader from "../../Components/BoxHeader";
-import { Box, useTheme, Typography } from "@mui/material";
 import { Cell, Pie, PieChart } from "recharts";
-import FlexBetween from "../../Components/FlexBetween";
 
-function Row3() {
+const Row3 = () => {
   const { palette } = useTheme();
-  const pieColors = [palette.primary[800], palette.primary[300]];
+  const pieColors = [palette.primary[800], palette.primary[500]];
+
   const { data: kpiData } = useGetKpisQuery();
   const { data: productData } = useGetProductsQuery();
   const { data: transactionData } = useGetTransactionsQuery();
-  console.log(transactionData);
 
   const pieChartData = useMemo(() => {
     if (kpiData) {
@@ -55,9 +55,10 @@ function Row3() {
       field: "price",
       headerName: "Price",
       flex: 0.5,
-      renderCell: (params: GridCellParams) => "$" + params.value,
+      renderCell: (params: GridCellParams) => `$${params.value}`,
     },
   ];
+
   const transactionColumns = [
     {
       field: "_id",
@@ -73,7 +74,7 @@ function Row3() {
       field: "amount",
       headerName: "Amount",
       flex: 0.35,
-      renderCell: (params: GridCellParams) => "$" + params.value,
+      renderCell: (params: GridCellParams) => `$${params.value}`,
     },
     {
       field: "productIds",
@@ -83,6 +84,7 @@ function Row3() {
         (params.value as Array<string>).length,
     },
   ];
+
   return (
     <>
       <DashboardBox gridArea="g">
@@ -95,12 +97,10 @@ function Row3() {
           p="0 0.5rem"
           height="75%"
           sx={{
-            borderColor: palette.grey[800],
             "& .MuiDataGrid-root": {
               color: palette.grey[300],
               border: "none",
             },
-
             "& .MuiDataGrid-cell": {
               borderBottom: `1px solid ${palette.grey[800]} !important`,
             },
@@ -124,19 +124,17 @@ function Row3() {
       <DashboardBox gridArea="h">
         <BoxHeader
           title="Recent Orders"
-          sideText={`${transactionData?.length} latest Transactions`}
+          sideText={`${transactionData?.length} latest transactions`}
         />
         <Box
           mt="1rem"
           p="0 0.5rem"
           height="80%"
           sx={{
-            borderColor: palette.grey[800],
             "& .MuiDataGrid-root": {
               color: palette.grey[300],
               border: "none",
             },
-
             "& .MuiDataGrid-cell": {
               borderBottom: `1px solid ${palette.grey[800]} !important`,
             },
@@ -158,16 +156,22 @@ function Row3() {
         </Box>
       </DashboardBox>
       <DashboardBox gridArea="i">
-        <BoxHeader title="Expenses Breakdown By Category" sideText="+4%" />
-        <FlexBetween mt="0.5rem" gap="0.5rem" p="0 1rem" textAlign="center">
+        <BoxHeader title="Expense Breakdown By Category" sideText="+4%" />
+        <FlexBetween
+          mt="0.5rem"
+          gap="0.5rem"
+          p="0 1rem"
+          textAlign="center"
+          height="65%"
+        >
           {pieChartData?.map((data, i) => (
             <Box key={`${data[0].name}-${i}`}>
-              <PieChart width={80} height={80}>
+              <PieChart width={70} height={70}>
                 <Pie
-                  data={data}
                   stroke="none"
+                  data={data}
                   innerRadius={18}
-                  outerRadius={38}
+                  outerRadius={35}
                   paddingAngle={2}
                   dataKey="value"
                 >
@@ -176,7 +180,7 @@ function Row3() {
                   ))}
                 </Pie>
               </PieChart>
-              <Typography mt="0.25rem" variant="h5">
+              <Typography mt="0.5rem" variant="h5">
                 {data[0].name}
               </Typography>
             </Box>
@@ -201,15 +205,15 @@ function Row3() {
             width="40%"
           ></Box>
         </Box>
-        <Typography maxWidth={512} margin="0 1rem" variant="h6">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
-          mollitia, aliquam ducimus accusamus, quasi iusto consequuntur tempore
-          ad itaque dicta quae? Nostrum officia recusandae ipsam accusamus rerum
-          quidem, sed iure quo culpa itaque cumque? Magnam suscipit earum iure
+        <Typography margin="0 1rem" variant="h6">
+          Orci aliquam enim vel diam. Venenatis euismod id donec mus lorem etiam
+          ullamcorper odio sed. Ipsum non sed gravida etiam urna egestas
+          molestie volutpat et. Malesuada quis pretium aliquet lacinia ornare
+          sed. In volutpat nullam at est id cum pulvinar nunc.
         </Typography>
       </DashboardBox>
     </>
   );
-}
+};
 
 export default Row3;

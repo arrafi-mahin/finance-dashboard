@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import PixIcon from "@mui/icons-material/Pix";
 import { Box, Typography, useTheme } from "@mui/material";
-import FlexBetween from "../../Components/FlexBetween";
+import FlexBetween from "@/components/FlexBetween";
 
-const Navbar = () => {
+type Props = {};
+
+const Navbar = (props: Props) => {
   const { palette } = useTheme();
   const [selected, setSelected] = useState("dashboard");
   return (
@@ -28,21 +30,21 @@ const Navbar = () => {
               textDecoration: "inherit",
             }}
           >
-            Dashboard
+            dashboard
           </Link>
         </Box>
-        <Box sx={{ "&:hover": { color: palette.primary[100] } }}>
+        {/* <Box sx={{ "&:hover": { color: palette.primary[100] } }}>
           <Link
-            to="/predections"
-            onClick={() => setSelected("predections")}
+            to="/predictions"
+            onClick={() => setSelected("predictions")}
             style={{
-              color: selected === "predections" ? "inherit" : palette.grey[700],
+              color: selected === "predictions" ? "inherit" : palette.grey[700],
               textDecoration: "inherit",
             }}
           >
-            Predections
+            predictions
           </Link>
-        </Box>
+        </Box> */}
       </FlexBetween>
     </FlexBetween>
   );
