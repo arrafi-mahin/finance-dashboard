@@ -19,7 +19,7 @@ export const tokens = {
     500: "#3AC977",
     600: "#0ebfa0",
     700: "#0b8f78",
-    800: "#030e4a",
+    800: "#12290b",
     900: "#043028",
   },
   secondary: {
@@ -36,7 +36,7 @@ export const tokens = {
   },
   tertiary: {
     // purple
-    500: "#3AC977",
+    500: "#2b8012",
   },
   background: {
     light: "#1C2948",
