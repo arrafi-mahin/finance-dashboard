@@ -55,3 +55,29 @@ export interface GetTransactionsResponse {
   createdAt: string;
   updatedAt: string;
 }
+export interface MonthlyData {
+  month: string;
+  revenue: number;
+  expenses: number;
+}
+
+export interface Data {
+  monthlyData: MonthlyData[];
+}
+
+export interface Revenue {
+  name: string;
+  revenue: number;
+}
+
+export interface RevenueExpense {
+  name: string;
+  revenue: number;
+  expenses: number;
+}
+
+export interface RevenueProfit {
+  name: string;
+  revenue: number;
+  profit: string;
+}
