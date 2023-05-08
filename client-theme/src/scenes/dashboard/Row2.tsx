@@ -31,10 +31,11 @@ const Row2 = () => {
   const { palette } = useTheme();
   const pieColors = [palette.primary[800], palette.primary[300]];
   const { data } = useGetKpisQuery() as { data: GetKpisResponse[] };
-  const { productData } = useGetProductsQuery() as {
-    productData: GetProductsResponse[];
+  const { data: productData } = useGetProductsQuery() as {
+    data: GetProductsResponse[];
   };
 
+  console.log(productData);
   const operationalExpenses = useMemo(() => {
     return (
       data &&

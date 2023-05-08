@@ -11,17 +11,23 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid, GridCellParams } from "@mui/x-data-grid";
 import { Cell, Pie, PieChart } from "recharts";
 import Loader from "@/components/loader";
-import { GetKpisResponse, GetProductsResponse } from "@/state/types";
+import {
+  GetKpisResponse,
+  GetProductsResponse,
+  GetTransactionsResponse,
+} from "@/state/types";
 
 const Row3 = () => {
   const { palette } = useTheme();
   const pieColors = [palette.primary[800], palette.primary[500]];
 
-  const { kpiData } = useGetKpisQuery() as { kpiData: GetKpisResponse[] };
-  const { productData } = useGetProductsQuery() as {
-    productData: GetProductsResponse[];
+  const { data: kpiData } = useGetKpisQuery() as { data: GetKpisResponse[] };
+  const { data: productData } = useGetProductsQuery() as {
+    data: GetProductsResponse[];
   };
-  const { transactionData } = useGetTransactionsQuery();
+  const { data: transactionData } = useGetTransactionsQuery() as {
+    data: GetTransactionsResponse[];
+  };
 
   const pieChartData = useMemo(() => {
     if (kpiData) {
