@@ -3,6 +3,7 @@ import DashboardBox from "@/components/DashboardBox";
 import FlexBetween from "@/components/FlexBetween";
 import Loader from "@/components/loader";
 import { useGetKpisQuery, useGetProductsQuery } from "@/state/api";
+import { GetKpisResponse, GetProductsResponse } from "@/state/types";
 import { Box, Typography, useTheme } from "@mui/material";
 import { useMemo } from "react";
 import {
@@ -29,13 +30,15 @@ const pieData = [
 const Row2 = () => {
   const { palette } = useTheme();
   const pieColors = [palette.primary[800], palette.primary[300]];
-  const { data: operationalData } = useGetKpisQuery();
-  const { data: productData } = useGetProductsQuery();
+  const { data } = useGetKpisQuery() as { data: GetKpisResponse[] };
+  const { productData } = useGetProductsQuery() as {
+    productData: GetProductsResponse[];
+  };
 
   const operationalExpenses = useMemo(() => {
     return (
-      operationalData &&
-      operationalData[0].monthlyData.map(
+      data &&
+      data[0].monthlyData.map(
         ({ month, operationalExpenses, nonOperationalExpenses }) => {
           return {
             name: month.substring(0, 3),
@@ -45,7 +48,7 @@ const Row2 = () => {
         }
       )
     );
-  }, [operationalData]);
+  }, [data]);
 
   const productExpenseData = useMemo(() => {
     return (

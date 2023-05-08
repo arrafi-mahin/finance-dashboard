@@ -2,6 +2,7 @@ import BoxHeader from "@/components/BoxHeader";
 import DashboardBox from "@/components/DashboardBox";
 import Loader from "@/components/loader";
 import { useGetKpisQuery } from "@/state/api";
+import { GetKpisResponse } from "@/state/types";
 import { useTheme } from "@mui/material";
 import { useMemo } from "react";
 import {
@@ -21,12 +22,12 @@ import {
 
 const Row1 = () => {
   const { palette } = useTheme();
-  const { data } = useGetKpisQuery();
+  const { data } = useGetKpisQuery() as { data: GetKpisResponse[] };
 
   const revenue = useMemo(() => {
     return (
       data &&
-      data.monthlyData.map(({ month, revenue }) => {
+      data[0].monthlyData.map(({ month, revenue }) => {
         return {
           name: month.substring(0, 3),
           revenue: revenue,
